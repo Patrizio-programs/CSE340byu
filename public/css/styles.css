@@ -1,6 +1,113 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+
+
+#top-header{
+
+  display: flex;
+  justify-content: space-between;
 }
+
+.siteName{
+
+  font-size: large;
+  font-size: 40px;
+}
+
+.hero{
+  display: block;
+       margin-left: auto;
+       margin-right: auto;
+       width: auto;
+}
+
+button{
+
+  padding: 20px;
+  background-color: #01B0D3;
+ }
+@media screen and (max-width: 850px) {
+
+  .hero {
+    width: 80%;
+    height: auto;
+  }
+
+  .herotextbox{
+    font-size: small;
+  }
+
+  button{
+    padding: 10px;
+    background-color: #01B0D3;
+   }
+
+   .upgrades li{
+    padding: 5px;}
+}
+
+
+.nav{
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+.upgrades {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px; 
+  width: auto;
+}
+
+.Delorean_Reviews{
+  width: 100%;
+  gap: 30px;
+}
+
+.upgrades li{
+  list-style-type: none;
+}
+
+.herotextbox{
+  position: absolute;
+  left: 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #01B0D3 ;
+}
+
+
+
+.upgrades img {
+  width: auto; 
+  height: auto; 
+}
+
+.upgrades li{
+  padding: 10px;
+  background-color: #01B0D3;
+  width: auto;
+  margin: 0;
+}
+
+.upgrades img{
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+}
+
+.reviews_upgrades{
+  display: flex;
+  flex-direction: row-reverse;
+  width: 80%;
+  gap: 10px;
+
+}
+
+@media screen and (max-width: 850px) {
+  .reviews_upgrades{
+    display: flex;
+    flex-direction: column;
+  }
+ }
