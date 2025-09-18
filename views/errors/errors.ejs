@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error: <%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1><%= title %></h1>
+
+      <div class="error-content">
+        <p><%- message %></p>
+
+        <!-- Add some humor -->
+        <p>Page Not Found</p>
+
+        <p>Try again, or maybe take a break and come back later.</p>
+      </div>
+
+      <a href="/" class="btn">Go Home</a>
+    </div>
+  </body>
+</html>
