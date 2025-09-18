@@ -12,6 +12,7 @@ const app = express();
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const Util = require("./utilities");
+const inventoryRoute = require("./routes/inventoryRoute");
 
 /* ***********************
  * Views
@@ -34,6 +35,9 @@ app.get("/", async (req, res) => {
   }
 });
 app.get("/", baseController.buildHome);
+
+// Inventory routes
+app.use("/inv", inventoryRoute);
 
 /* ***********************
  * Local Server Information
