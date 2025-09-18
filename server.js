@@ -10,6 +10,8 @@ const expressLayouts = require("express-ejs-layouts");
 const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
+const baseController = require("./controllers/baseController");
+const Util = require("./utilities");
 
 /* ***********************
  * Views
@@ -21,9 +23,17 @@ app.set("layout", "./layouts/layout"); // not at views root
 
 app.use(static);
 
-app.get("/", function (req, res) {
-  res.render("index", { title: "Home" });
+//Routes//
+app.get("/", async (req, res) => {
+  try {
+    const nav = await Util.getNav(req, res);
+    res.render("index", { title: "Home", nav });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching navigation");
+  }
 });
+app.get("/", baseController.buildHome);
 
 /* ***********************
  * Local Server Information
