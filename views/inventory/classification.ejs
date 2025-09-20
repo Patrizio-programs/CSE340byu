@@ -1,3 +1,10 @@
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } else { res.redirect('/') } %> <%# messages() %> <%- grid %>
+<% } else { res.redirect('/') } %> <%- messages() %> <%- grid %>
+
+<!-- Add this section to display the nav -->
+<% if (nav) { %>
+<ul>
+  <% nav.split('').forEach(function(item) { %>Y4:0;<% }); %>
+</ul>
+<% } %>

@@ -13,6 +13,7 @@ const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const Util = require("./utilities");
 const inventoryRoute = require("./routes/inventoryRoute");
+const inventoryController = require("./controllers/invController");
 
 /* ***********************
  * Views
