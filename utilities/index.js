@@ -1,8 +1,5 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
-const express = require("express");
-const router = express.Router();
-const invCont = require("../controllers/invController");
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -23,9 +20,6 @@ Util.getNav = async function getNav(req, res, next) {
   nav += "</ul>";
   return nav;
 };
-
-// Route to build inventory by classification view
-router.get("/type/:classificationId", invCont.buildByClassificationId);
 
 /* **************************************
  * Build the classification view HTML
@@ -66,6 +60,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_model +
         "</a>";
       grid += "</h2>";
+
       grid +=
         "<span>$" +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
@@ -81,3 +76,4 @@ Util.buildClassificationGrid = async function (data) {
 };
 
 module.exports = Util;
+[];

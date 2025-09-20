@@ -21,9 +21,10 @@ async function getInventoryByClassificationId(classification_id) {
       WHERE i.classification_id = $1`,
       [classification_id]
     );
-    return data.rows;
+    return data;
   } catch (error) {
     console.error("getclassificationsbyid error " + error);
+    return { rows: [] };
   }
 }
 
