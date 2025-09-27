@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/head') %> <%- messages() %>
+  <%- include('./partials/head') %>
 
   <body>
     <div id="wrapper">
-      <%- include('./partials/header') %> <%- include('./partials/navigation')
-      %> <%- messages() %>
+      <%- include('./partials/header') %> <%- include('./partials/navigation') %>
+      <% if (messages && messages.length > 0) { %>
+        <div class="messages">
+          <% messages.forEach(function(message) { %>
+            <div class="alert alert-<%= message.type %>"><%= message.text %></div>
+          <% }) %>
+        </div>
+      <% } %>
       <main>
         <h1>Welcome to CSE Motors!</h1>
 

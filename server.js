@@ -28,15 +28,6 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(static);
 
 //Routes//
-app.get("/", async (req, res) => {
-  try {
-    const nav = await Util.getNav(req, res);
-    res.render("index", { title: "Home", nav });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error fetching navigation");
-  }
-});
 app.get("/", baseController.buildHome);
 
 // Inventory routes
@@ -86,9 +77,9 @@ app.listen(port, () => {
  * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav();
+  let nav = await Util.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  res.render("errors/error", {
+  res.render("errors/errors", {
     title: err.status || "Server Error",
     message: err.message,
     nav,
