@@ -4,13 +4,13 @@
 
   <body>
     <div id="wrapper">
-      <%- include('./partials/header') %> <%- include('./partials/navigation') %>
-      <% if (messages && messages.length > 0) { %>
-        <div class="messages">
-          <% messages.forEach(function(message) { %>
-            <div class="alert alert-<%= message.type %>"><%= message.text %></div>
-          <% }) %>
-        </div>
+      <%- include('./partials/header') %> <%- include('./partials/navigation')
+      %> <% if (messages && messages.length > 0) { %>
+      <div class="messages">
+        <% messages.forEach(function(message) { %>
+        <div class="alert alert-<%= message.type %>"><%= message.text %></div>
+        <% }) %>
+      </div>
       <% } %>
       <main>
         <h1>Welcome to CSE Motors!</h1>

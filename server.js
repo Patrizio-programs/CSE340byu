@@ -28,6 +28,15 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(static);
 
 //Routes//
+app.get("/", async (req, res) => {
+  try {
+    const nav = await Util.getNav(req, res);
+    res.render("index", { title: "Home", nav, messages: res.locals.messages });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching navigation");
+  }
+});
 app.get("/", baseController.buildHome);
 
 // Inventory routes
@@ -82,6 +91,7 @@ app.use(async (err, req, res, next) => {
   res.render("errors/errors", {
     title: err.status || "Server Error",
     message: err.message,
+    error: err,
     nav,
   });
 });
