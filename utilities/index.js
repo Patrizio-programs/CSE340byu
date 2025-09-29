@@ -74,5 +74,39 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+/* **************************************
+ * Build the vehicle detail view HTML
+ * ************************************ */
+Util.buildVehicleDetail = async function (data) {
+  let detail;
+  if (data) {
+    // Format price with commas and dollar sign
+    const formattedPrice = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0
+    }).format(data.inv_price);
+    
+    // Format mileage with commas
+    const formattedMileage = new Intl.NumberFormat("en-US").format(data.inv_miles);
+    
+    detail = '<div class="vehicle-detail">';
+    detail += '<div class="vehicle-image">';
+    detail += '<img src="' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' + data.inv_model + ' on CSE Motors" />';
+    detail += '</div>';
+    detail += '<div class="vehicle-info">';
+    detail += '<h2>' + data.inv_make + ' ' + data.inv_model + ' Details</h2>';
+    detail += '<div class="price">Price: <span>' + formattedPrice + '</span></div>';
+    detail += '<div class="mileage">Mileage: <span>' + formattedMileage + '</span></div>';
+    detail += '<div class="year">Year: <span>' + data.inv_year + '</span></div>';
+    detail += '<div class="color">Color: <span>' + data.inv_color + '</span></div>';
+    detail += '<div class="description"><h3>Description</h3><p>' + data.inv_description + '</p></div>';
+    detail += '</div>';
+    detail += '</div>';
+  } else {
+    detail += '<p class="notice">Sorry, vehicle details could not be found.</p>';
+  }
+  return detail;
+};
+
 module.exports = Util;
-[];
