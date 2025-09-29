@@ -60,7 +60,6 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_model +
         "</a>";
       grid += "</h2>";
-
       grid +=
         "<span>$" +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +

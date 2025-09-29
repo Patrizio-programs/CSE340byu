@@ -18,7 +18,7 @@ const session = require("express-session");
 const pool = require("./database/");
 
 /* ***********************
- * Views
+ * Views /Templates
  *************************/
 
 app.set("view engine", "ejs");

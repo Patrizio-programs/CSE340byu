@@ -26,7 +26,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
         : "Unknown Classification";
 
     res.render("./inventory/classification", {
-      title: classificationName + " Vehicles",
+      title: classificationName,
       nav,
       grid,
     });
