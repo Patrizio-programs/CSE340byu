@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const bcrypt = require("bcryptjs");
 const Util = {};
 
 /* ************************
@@ -107,6 +108,40 @@ Util.buildVehicleDetail = async function (data) {
     detail += '<p class="notice">Sorry, vehicle details could not be found.</p>';
   }
   return detail;
+};
+
+/* ****************************************
+* Check Login
+* ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (req.session.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
+/* ****************************************
+* Hash Password
+* ************************************ */
+Util.hashPassword = async (password) => {
+  try {
+    return await bcrypt.hash(password, 10);
+  } catch (error) {
+    throw new Error("Password hashing failed");
+  }
+};
+
+/* ****************************************
+* Compare Passwords
+* ************************************ */
+Util.comparePassword = async (plainPassword, hashedPassword) => {
+  try {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  } catch (error) {
+    throw new Error("Password comparison failed");
+  }
 };
 
 module.exports = Util;

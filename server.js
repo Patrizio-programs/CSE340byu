@@ -13,6 +13,8 @@ const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const Util = require("./utilities");
 const inventoryRoute = require("./routes/inventoryRoute");
+const accountRoute = require("./routes/accountRoute");
+const accountController = require("./controllers/accountController");
 const inventoryController = require("./controllers/invController");
 const session = require("express-session");
 const pool = require("./database/");
@@ -24,8 +26,6 @@ const pool = require("./database/");
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout"); // not at views root
-
-app.use(static);
 
 //Routes//
 app.get("/", async (req, res) => {
