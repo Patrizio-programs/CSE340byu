@@ -5,12 +5,12 @@ const utilities = require("../utilities");
 
 const router = express.Router();
 
-// Example route: GET /account/profile
+//GET /account/profile
 router.get("/profile", (req, res) => {
   res.json({ message: "Account profile route" });
 });
 
-// Example route: POST /account/register
+// /account/register
 router.post("/register", (req, res) => {
   // Registration logic here
   res.json({ message: "Account registration route" });
