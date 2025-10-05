@@ -18,6 +18,8 @@ const accountController = require("./controllers/accountController");
 const inventoryController = require("./controllers/invController");
 const session = require("express-session");
 const pool = require("./database/");
+const utilities = require("./utilities");
+const cookieParser = require("cookie-parser");
 
 /* ***********************
  * Views /Templates
@@ -57,6 +59,8 @@ app.use(
     name: "sessionId",
   })
 );
+
+app.use(utilities.checkJWTToken);
 
 // Express Messages Middleware
 app.use(require("connect-flash")());
