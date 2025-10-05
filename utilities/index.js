@@ -8,20 +8,27 @@ require("dotenv").config();
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function getNav(req, res, next) {
-  let data = await invModel.getClassifications();
-  console.log(data);
-  let nav = "<ul>";
+  try {
+    let data = await invModel.getClassifications();
+    console.log(data);
+    let nav = "<ul>";
 
-  // Add home link
-  nav += '<li><a href="/">Home</a></li>';
+    // Add home link
+    nav += '<li><a href="/">Home</a></li>';
 
-  // Add classification links
-  data.rows.forEach((row) => {
-    nav += `<li><a href="/inv/type/${row.classification_id}">${row.classification_name}</a></li>`;
-  });
+    // Add classification links
+    if (data && data.rows) {
+      data.rows.forEach((row) => {
+        nav += `<li><a href="/inv/type/${row.classification_id}">${row.classification_name}</a></li>`;
+      });
+    }
 
-  nav += "</ul>";
-  return nav;
+    nav += "</ul>";
+    return nav;
+  } catch (error) {
+    console.error("Error building navigation:", error);
+    return "<ul><li><a href="/">Home</a></li></ul>";
+  }
 };
 
 /* **************************************

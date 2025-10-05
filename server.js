@@ -29,24 +29,25 @@ app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout"); // not at views root
 
-//Routes//
-app.get("/", async (req, res) => {
-  try {
-    const nav = await Util.getNav(req, res);
-    res.render("index", { title: "Home", nav, messages: res.locals.messages });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error fetching navigation");
-  }
-});
+// Static files middleware
+app.use(express.static("public"));
+
+// Routes
+app.use(static);
 app.get("/", baseController.buildHome);
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
+// Account routes
+app.use("/account", accountRoute);
+
 /* ***********************
  * Middleware
  * ************************/
+// Cookie Parser Middleware
+app.use(cookieParser());
+
 app.use(
   session({
     store: new (require("connect-pg-simple")(session))({

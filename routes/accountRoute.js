@@ -16,6 +16,17 @@ router.post("/register", (req, res) => {
   res.json({ message: "Account registration route" });
 });
 
+// Deliver login view
+router.get("/login", async (req, res) => {
+  let nav = await utilities.getNav(req, res);
+  res.render("account/login", { 
+    title: "Login",
+    nav,
+    errors: null,
+    account_email: ""
+  });
+});
+
 // Process the login request
 router.post(
   "/login",
