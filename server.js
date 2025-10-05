@@ -20,6 +20,7 @@ const session = require("express-session");
 const pool = require("./database/");
 const utilities = require("./utilities");
 const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
 
 /* ***********************
  * Views /Templates
@@ -61,14 +62,14 @@ app.use(
   })
 );
 
-app.use(utilities.checkJWTToken);
-
 // Express Messages Middleware
 app.use(require("connect-flash")());
 app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
   next();
 });
+
+app.use(utilities.checkJWTToken);
 
 /* ***********************
  * Local Server Information
@@ -91,7 +92,7 @@ app.listen(port, () => {
  * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await Util.getNav();
+  let nav = await Util.getNav(req, res);
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   res.render("errors/errors", {
     title: err.status || "Server Error",
