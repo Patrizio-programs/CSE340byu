@@ -24,6 +24,7 @@ const flash = require("connect-flash");
 
 /* ***********************
  * Views /Templates
+
  *************************/
 
 app.set("view engine", "ejs");
@@ -61,6 +62,8 @@ app.use(
     name: "sessionId",
   })
 );
+
+app.use(flash());
 
 // Express Messages Middleware
 app.use(require("connect-flash")());
