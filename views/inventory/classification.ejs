@@ -1,3 +1,10 @@
-<% if (title) { %> <% if (nav) { %> <%- nav %> <% } %>
-<h1><%= title %></h1>
-<% } else { res.redirect('/') } %> <%# messages() %> <%- grid %>
+<% if (title) { %>
+  <% if (nav) { %>
+    <%- nav %>
+  <% } %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <% res.redirect('/') %>
+<% } %>
+<%# messages() %>
+<%- grid %>
