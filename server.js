@@ -47,6 +47,10 @@ app.use("/account", accountRoute);
 /* ***********************
  * Middleware
  * ************************/
+// Body parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Cookie Parser Middleware
 app.use(cookieParser());
 
@@ -86,8 +90,8 @@ const host = process.env.HOST;
  * Log statement to confirm server operation
  *************************/
 
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`);
+app.listen(port, host || "0.0.0.0", () => {
+  console.log(`app listening on ${host || "0.0.0.0"}:${port}`);
 });
 
 /* ***********************

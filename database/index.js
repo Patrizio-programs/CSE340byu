@@ -13,6 +13,10 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
+    // Additional connection settings to prevent unexpected termination
+    max: 10, // Maximum number of clients in the pool
+    idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
+    connectionTimeoutMillis: 2000, // How long to wait when connecting a new client
   });
 
   // Added for troubleshooting queries
@@ -32,6 +36,10 @@ if (process.env.NODE_ENV == "development") {
 } else {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    // Additional connection settings to prevent unexpected termination
+    max: 10, // Maximum number of clients in the pool
+    idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
+    connectionTimeoutMillis: 2000, // How long to wait when connecting a new client
   });
   module.exports = pool;
 }
