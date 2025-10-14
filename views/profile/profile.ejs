@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .profile-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .profile-info {
+      flex: 1;
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .profile-stats {
+      flex: 1;
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .achievements-container {
+      margin-top: 2rem;
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .achievement-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .achievement-icon {
+      font-size: 1.5rem;
+      color: #4e73df;
+    }
+
+    .achievement-details h4 {
+      margin: 0 0 0.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    .achievement-details p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .achievement-points {
+      font-weight: bold;
+      color: #4e73df;
+      margin-left: auto;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group textarea,
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .btn {
+      background-color: #4e73df;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #3a5cc9;
+    }
+
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid #4e73df;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #4e73df;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .notice {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <%- include('../partials/header') %>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>My Profile</h1>
+
+      <% if (typeof messages !== 'undefined' && messages.notice) { %>
+        <div class="notice"><%= messages.notice %></div>
+      <% } %>
+
+      <div class="profile-container">
+        <!-- Profile Information Section -->
+        <div class="profile-info">
+          <h2>Profile Information</h2>
+
+          <% if (userStats.profile && userStats.profile.profile_avatar) { %>
+            <img src="<%= userStats.profile.profile_avatar %>" alt="Profile Avatar" class="avatar-preview">
+          <% } else { %>
+            <img src="/images/default-avatar.png" alt="Default Avatar" class="avatar-preview">
+          <% } %>
+
+          <form action="/profile/update" method="post">
+            <div class="form-group">
+              <label for="bio">Bio:</label>
+              <textarea id="bio" name="bio" rows="4"><%= userStats.profile ? userStats.profile.profile_bio || '' : '' %></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="avatar">Avatar URL:</label>
+              <input type="text" id="avatar" name="avatar" value="<%= userStats.profile ? userStats.profile.profile_avatar || '' : '' %>">
+            </div>
+
+            <div class="form-group">
+              <label for="favoriteClassification">Favorite Vehicle Type:</label>
+              <select id="favoriteClassification" name="favoriteClassification">
+                <option value="">Select a type</option>
+                <option value="1" <%= userStats.profile && userStats.profile.profile_favorite_classification == 1 ? 'selected' : '' %>>Custom</option>
+                <option value="2" <%= userStats.profile && userStats.profile.profile_favorite_classification == 2 ? 'selected' : '' %>>Sport</option>
+                <option value="3" <%= userStats.profile && userStats.profile.profile_favorite_classification == 3 ? 'selected' : '' %>>Truck</option>
+                <option value="4" <%= userStats.profile && userStats.profile.profile_favorite_classification == 4 ? 'selected' : '' %>>Sedan</option>
+                <option value="5" <%= userStats.profile && userStats.profile.profile_favorite_classification == 5 ? 'selected' : '' %>>SUV</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn">Update Profile</button>
+          </form>
+        </div>
+
+        <!-- Profile Statistics Section -->
+        <div class="profile-stats">
+          <h2>Account Statistics</h2>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value"><%= userStats.achievementsCount %></div>
+              <div class="stat-label">Achievements</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-value"><%= userStats.totalPoints %></div>
+              <div class="stat-label">Total Points</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-value"><%= userStats.account.account_type %></div>
+              <div class="stat-label">Account Type</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-value"><%= classificationName %></div>
+              <div class="stat-label">Favorite Type</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <h3>Account Details</h3>
+            <p><strong>Name:</strong> <%= userStats.account.account_firstname %> <%= userStats.account.account_lastname %></p>
+            <p><strong>Email:</strong> <%= userStats.account.account_email %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements Section -->
+      <div class="achievements-container">
+        <h2>My Achievements</h2>
+
+        <div class="achievements-grid">
+          <% if (achievements.length > 0) { %>
+            <% achievements.forEach(function(achievement) { %>
+              <div class="achievement-card">
+                <div class="achievement-icon">
+                  <i class="<%= achievement.achievement_icon %>"></i>
+                </div>
+                <div class="achievement-details">
+                  <h4><%= achievement.achievement_name %></h4>
+                  <p><%= achievement.achievement_description %></p>
+                </div>
+                <div class="achievement-points">
+                  +<%= achievement.achievement_points %>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>No achievements earned yet. Start exploring to unlock your first achievement!</p>
+          <% } %>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Available Achievements</h3>
+        <div class="achievements-grid">
+          <% allAchievements.forEach(function(achievement) { %>
+            <% const earned = achievements.some(a => a.achievement_id === achievement.achievement_id); %>
+            <div class="achievement-card <%= earned ? '' : 'locked' %>" style="<%= earned ? '' : 'opacity: 0.6;' %>">
+              <div class="achievement-icon">
+                <i class="<%= achievement.achievement_icon %>"></i>
+              </div>
+              <div class="achievement-details">
+                <h4><%= achievement.achievement_name %></h4>
+                <p><%= achievement.achievement_description %></p>
+              </div>
+              <div class="achievement-points">
+                +<%= achievement.achievement_points %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+</body>
+</html>

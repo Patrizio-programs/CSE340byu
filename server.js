@@ -14,6 +14,7 @@ const baseController = require("./controllers/baseController");
 const Util = require("./utilities");
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
+const profileRoute = require("./routes/profileRoute");
 const accountController = require("./controllers/accountController");
 const inventoryController = require("./controllers/invController");
 const session = require("express-session");
@@ -43,6 +44,9 @@ app.use("/inv", inventoryRoute);
 
 // Account routes
 app.use("/account", accountRoute);
+
+// Profile routes
+app.use("/profile", profileRoute);
 
 /* ***********************
  * Middleware
